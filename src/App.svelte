@@ -41,12 +41,12 @@
   function addMeetup(params) {
     const newMeetup = {
       id: Math.random().toString(),
-      title,
-      subTitle,
-      description,
-      imageUrl,
-      address,
-      contactEmail: email,
+      title: event.detail.title,
+      subTitle: event.detail.subTitle,
+      description: event.detail.description,
+      imageUrl: event.detail.imageUrl,
+      address: event.detail.address,
+      contactEmail: event.detail.email,
     };
 
     meetups = [newMeetup, ...meetups];
