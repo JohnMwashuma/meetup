@@ -71,26 +71,22 @@
       id="title"
       label="Title"
       value={title}
-      on:input={(event) => (title = event.target.value)}
-      type="text" />
+      on:input={(event) => (title = event.target.value)} />
     <TextInput
       id="subtitle"
       label="SubTitle"
       value={subTitle}
-      on:input={(event) => (subTitle = event.target.value)}
-      type="text" />
+      on:input={(event) => (subTitle = event.target.value)} />
     <TextInput
       id="address"
       label="Address"
       value={address}
-      on:input={(event) => (address = event.target.value)}
-      type="text" />
+      on:input={(event) => (address = event.target.value)} />
     <TextInput
       id="imageUrl"
       label="Image URL"
       value={imageUrl}
-      on:input={(event) => (imageUrl = event.target.value)}
-      type="text" />
+      on:input={(event) => (imageUrl = event.target.value)} />
     <TextInput
       id="email"
       label="Email"
