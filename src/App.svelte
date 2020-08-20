@@ -54,12 +54,12 @@
 
   function toggleFavourite(event) {
     const id = event.detail;
-    const updateMeetup = { ...meetups.find(m => m.id === id) };
+    const updateMeetup = { ...meetups.find((m) => m.id === id) };
     updateMeetup.isFavourite = !updateMeetup.isFavourite;
 
-    const meetupIndex = meetups.findIndex(m => m.id === id);
+    const meetupIndex = meetups.findIndex((m) => m.id === id);
     const updateMeetups = [...meetups];
-    updateMeetups[meetupIndex] = updateMeetup
+    updateMeetups[meetupIndex] = updateMeetup;
     meetups = updateMeetups;
   }
 </script>
