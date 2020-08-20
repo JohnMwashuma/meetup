@@ -19,7 +19,7 @@
       description:
         'In this meetup, we will have some experts that teach you how to code',
       imageUrl:
-        'https://www.freecodecamp.org/news/content/images/2019/08/meetup-talk.jpg',
+        'https://image.shutterstock.com/image-vector/meetup-concept-illustration-young-people-260nw-571989925.jpg',
       address: 'One Padmore, Geoge Padmore Road, Nairobi',
       contactEmail: 'code@ona.io',
       isFavourite: false
@@ -31,7 +31,7 @@
       description:
         'In this meetup, we will have some experts that teach you how to code in rails',
       imageUrl:
-        'https://blogs.mulesoft.com/wp-content/uploads/2017/11/mulesoft-developer-meetups.png',
+        'https://image.shutterstock.com/image-vector/meetup-concept-illustration-young-people-260nw-571989925.jpg',
       address: 'One Padmore, Geoge Padmore Road, Nairobi',
       contactEmail: 'code@ona.io',
       isFavourite: false
