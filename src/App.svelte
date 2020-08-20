@@ -22,6 +22,7 @@
         'https://www.freecodecamp.org/news/content/images/2019/08/meetup-talk.jpg',
       address: 'One Padmore, Geoge Padmore Road, Nairobi',
       contactEmail: 'code@ona.io',
+      isFavourite: false
     },
     {
       id: 'm2',
@@ -33,6 +34,7 @@
         'https://blogs.mulesoft.com/wp-content/uploads/2017/11/mulesoft-developer-meetups.png',
       address: 'One Padmore, Geoge Padmore Road, Nairobi',
       contactEmail: 'code@ona.io',
+      isFavourite: false
     },
   ];
 
@@ -48,6 +50,17 @@
     };
 
     meetups = [newMeetup, ...meetups];
+  }
+
+  function toggleFavourite(event) {
+    const id = event.detail;
+    const updateMeetup = { ...meetups.find(m => m.id === id) };
+    updateMeetup.isFavourite = !updateMeetup.isFavourite;
+
+    const meetupIndex = meetups.findIndex(m => m.id === id);
+    const updateMeetups = [...meetups];
+    updateMeetups[meetupIndex] = updateMeetup
+    meetups = updateMeetups;
   }
 </script>
 
@@ -102,5 +115,5 @@
       on:input={(event) => (description = event.target.value)} />
     <Button type="submit" caption="Save" />
   </form>
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:togglefavourite={toggleFavourite} />
 </main>
