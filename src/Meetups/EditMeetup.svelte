@@ -6,12 +6,28 @@
   import Modal from '../UI/Modal.svelte';
   import { isEmpty, isValidEmail } from '../helpers/validation.js';
 
+  export let id = null;
+
   let title = '';
   let subTitle = '';
   let imageUrl = '';
   let description = '';
-  let email = '';
+  let contactEmail = '';
   let address = '';
+
+  if (id) {
+    const unsubscribe = meetups.subscribe((items) => {
+      const selectedMeetup = items.find((item) => item.id === id);
+      title = selectedMeetup.title;
+      subTitle = selectedMeetup.subTitle;
+      imageUrl = selectedMeetup.imageUrl;
+      description = selectedMeetup.description;
+      contactEmail = selectedMeetup.contactEmail;
+      address = selectedMeetup.address;
+    });
+
+    unsubscribe();
+  }
 
   const dispatch = createEventDispatcher();
 
@@ -19,7 +35,7 @@
   $: subTitleValid = !isEmpty(subTitle);
   $: imageUrlValid = !isEmpty(imageUrl);
   $: descriptionValid = !isEmpty(description);
-  $: emailValid = isValidEmail(email);
+  $: emailValid = isValidEmail(contactEmail);
   $: addressValid = !isEmpty(address);
   $: formIsValid =
     titleValid &&
@@ -36,15 +52,24 @@
       description: description,
       imageUrl: imageUrl,
       address: address,
-      contactEmail: email,
+      contactEmail: contactEmail,
     };
 
-    meetups.addMeetup(meetupData);
+    if (id) {
+      meetups.updateMeetup(id, meetupData);
+    } else {
+      meetups.addMeetup(meetupData);
+    }
     dispatch('save');
   }
 
   function cancel() {
     dispatch('cancel');
+  }
+
+  function deleteMeetup() {
+    meetups.removeMeetup(id);
+    dispatch('save');
   }
 </script>
 
@@ -87,10 +112,10 @@
     <TextInput
       id="email"
       label="Email"
-      value={email}
+      value={contactEmail}
       valid={emailValid}
       validityMessage="Please enter a valid email address."
-      on:input={(event) => (email = event.target.value)}
+      on:input={(event) => (contactEmail = event.target.value)}
       type="email" />
     <TextInput
       id="description"
@@ -106,5 +131,10 @@
     <Button type="button" on:click={submitForm} disabled={!formIsValid}>
       Save
     </Button>
+    {#if id }
+      <Button type="button" on:click={deleteMeetup}>
+      Delete
+    </Button>
+    {/if}
   </div>
 </Modal>
