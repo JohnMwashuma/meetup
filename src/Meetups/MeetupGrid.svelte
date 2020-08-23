@@ -19,7 +19,7 @@
 </style>
 
 <section id="meetups">
-  {#each meetups as meetup, _ (meetup.id)}
+  {#each meetups as meetup (meetup.id)}
     <MeetupItem
       id={meetup.id}
       title={meetup.title}
