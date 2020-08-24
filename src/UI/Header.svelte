@@ -20,5 +20,5 @@
 </style>
 
 <header>
-  <h1>Nairobi MeetUs</h1>
+  <h1>Nairobi Meetups</h1>
 </header>
