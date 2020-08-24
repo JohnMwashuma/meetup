@@ -56,9 +56,44 @@
     };
 
     if (id) {
-      meetups.updateMeetup(id, meetupData);
+      fetch(`https://nairobi-meetups.firebaseio.com/meetups/${id}.json`, {
+        method: 'PATCH',
+        body: JSON.stringify(meetupData),
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('An error occured, please try again!');
+          }
+          meetups.updateMeetup(id, meetupData);
+        })
+        .catch((err) => {
+          console.log('>>>error ', err);
+        });
     } else {
-      meetups.addMeetup(meetupData);
+      fetch('https://nairobi-meetups.firebaseio.com/meetups.json', {
+        method: 'POST',
+        body: JSON.stringify({ ...meetupData, isFavourite: false }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('An error occured, please try again!');
+          }
+
+          return res.json();
+        })
+        .then((data) => {
+          console.log('>>>data: ', data);
+          meetups.addMeetup({
+            ...meetupData,
+            isFavourite: false,
+            id: data.name,
+          });
+        })
+        .catch((err) => {
+          console.log('>>>error ', err);
+        });
     }
     dispatch('save');
   }
@@ -68,7 +103,18 @@
   }
 
   function deleteMeetup() {
-    meetups.removeMeetup(id);
+    fetch(`https://nairobi-meetups.firebaseio.com/meetups/${id}.json`, {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('An error occured, please try again!');
+        }
+        meetups.removeMeetup(id);
+      })
+      .catch((err) => {
+        console.log('>>>error ', err);
+      });
     dispatch('save');
   }
 </script>
@@ -131,10 +177,8 @@
     <Button type="button" on:click={submitForm} disabled={!formIsValid}>
       Save
     </Button>
-    {#if id }
-      <Button type="button" on:click={deleteMeetup}>
-      Delete
-    </Button>
+    {#if id}
+      <Button type="button" on:click={deleteMeetup}>Delete</Button>
     {/if}
   </div>
 </Modal>
